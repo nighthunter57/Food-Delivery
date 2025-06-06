@@ -1,30 +1,37 @@
-import express from "express"
-import cors from "cors"
-import { connectDB } from "./config/db.js"
-import foodRouter from "./routes/foodRoutes.js"
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import { connectDB } from "./config/db.js";
+import foodRouter from "./routes/foodRoutes.js";
 
-// app config
-const app = express()
-const port = 4000
+// Handle __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// middleware
-app.use(express.json())
-app.use(cors())
+const app = express();
+const port = 4000;
 
-// db connection
+// Middleware
+app.use(express.json());
+app.use(cors());
+
+// Static folder for images
+app.use("/image", express.static(path.join(__dirname, "uploads")));
+
+// DB connection
 connectDB();
 
-// api endpoint
-app.use("/api/food",foodRouter)
-app.use("/images",express.static('uploads'))
+// Routes
+app.use("/api/food", foodRouter);
 
-app.get("/",(req,res)=>{
-    res.send("API Working")
-})
+app.get("/", (req, res) => {
+  res.send("API Working");
+});
 
-app.listen(port,()=>{
-    console.log(`Server Started on http://localhost:${port}`)
+app.listen(port, () => {
+  console.log(`Server started on http://localhost:${port}`);
+});
 
-})
 
 // mongodb+srv://greatstack:KenKaneki52V.@cluster0.22un2gw.mongodb.net/?
