@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
+import userRouter from "./routes/userRoute.js";
 
 // Handle __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -24,6 +25,7 @@ connectDB();
 
 // Routes
 app.use("/api/food", foodRouter);
+app.use("/api/user", userRouter);
 
 app.get("/", (req, res) => {
   res.send("API Working");
