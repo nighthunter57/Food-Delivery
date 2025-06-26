@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
 import userRouter from "./routes/userRoute.js";
-
+import "dotenv/config"
 // Handle __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
